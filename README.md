@@ -2,9 +2,12 @@
 
 NewsApp is a mobile application built using React Native and TypeScript. It fetches the latest news from [The Guardian API](https://open-platform.theguardian.com/documentation/) and provides features such as different news categories, infinite scrolling, and a separate screen for viewing full news details. This project uses [React Query](https://react-query.tanstack.com/) for data fetching and storing, and [React Native FlashList](https://github.com/jacklam718/react-native-flash-list) for rendering lists.
 
-Home Screen                | News Page Details
+Home Screen                | News Page Details         
 :-------------------------:|:-------------------------:
-![](https://user-images.githubusercontent.com/26411546/229453782-a815db44-57a7-4cb6-8bf7-efdd4877e9f0.png)  |  ![](https://user-images.githubusercontent.com/26411546/229454056-66344a7a-7732-4445-b9cd-211d69639704.png)
+![](https://user-images.githubusercontent.com/26411546/229453782-a815db44-57a7-4cb6-8bf7-efdd4877e9f0.png)  |  ![](https://user-images.githubusercontent.com/26411546/229454056-66344a7a-7732-4445-b9cd-211d69639704.png).
+
+### Example 
+![](https://user-images.githubusercontent.com/26411546/229481867-29ff3f38-a860-4f20-80d1-55bb2bca0666.gif)
 
 
 ## Built with
