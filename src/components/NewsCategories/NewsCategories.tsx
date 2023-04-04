@@ -1,5 +1,6 @@
 import {CATEGORIES} from '@app/constants';
 import {rem} from '@app/utils';
+import {useTheme} from '@react-navigation/native';
 import React, {memo, useEffect, useRef, useState} from 'react';
 import {
   ScrollView,
@@ -28,6 +29,7 @@ function NewsCategories({
   const [categories] = useState(CATEGORIES);
   const list = useRef<ScrollView>(null);
   const {width} = useWindowDimensions();
+  const {colors} = useTheme();
 
   useEffect(() => {
     list.current?.scrollTo({x: positions[selectedEl]});
@@ -35,7 +37,10 @@ function NewsCategories({
 
   return (
     <>
-      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.title}>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        style={[styles.title, {color: colors.text}]}>
         Categories
       </Text>
       <ScrollView

@@ -1,6 +1,10 @@
 import HomeScreen from '@app/screens/HomeScreen';
 import NewsPage from '@app/screens/NewsPage';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {RootStackParamList} from './types';
@@ -8,13 +12,15 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
+import {useColorScheme} from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigation() {
+  const scheme = useColorScheme();
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <NavigationContainer>
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Home"

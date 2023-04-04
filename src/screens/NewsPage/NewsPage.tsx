@@ -2,7 +2,7 @@ import {newsApi, NewsResponse} from '@app/api';
 import AnimatedImage from '@app/components/AnimatedImage';
 import {NewsPageProps} from '@app/navigation/types';
 import {InfiniteData, useQuery, useQueryClient} from '@tanstack/react-query';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -13,12 +13,13 @@ import {
   View,
 } from 'react-native';
 import {useWindowDimensions} from 'react-native';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, {MixedStyleDeclaration} from 'react-native-render-html';
 import {styles} from './styles';
 import BackButton from '@app/components/BackButton';
 import {rem} from '@app/utils';
 import {LinearGradient} from 'react-native-gradients';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useTheme} from '@react-navigation/native';
 
 const colorList = [
   {offset: '0%', color: '#000', opacity: '1'},
@@ -51,8 +52,42 @@ const NewsPage = ({route, navigation}: NewsPageProps) => {
   });
 
   const {width} = useWindowDimensions();
+  const {colors} = useTheme();
   const contentReady = !!data?.content?.fields.body && ready && !isLoading;
   const imgUrl = data?.content?.fields.thumbnail;
+  const tagsStyles: Readonly<Record<string, MixedStyleDeclaration>> = useMemo(
+    () => ({
+      li: {
+        marginTop: -15,
+        color: 'red',
+      },
+      h1: {
+        color: colors.text,
+      },
+      h2: {
+        color: colors.text,
+      },
+      h3: {
+        color: colors.text,
+      },
+      h4: {
+        color: colors.text,
+      },
+      p: {
+        color: colors.text,
+        opacity: 0.8,
+      },
+      span: {
+        color: colors.text,
+        opacity: 0.8,
+      },
+      blockquote: {
+        color: colors.text,
+        opacity: 0.8,
+      },
+    }),
+    [colors.text],
+  );
 
   const onScrollEvent = Animated.event(
     [
@@ -94,7 +129,7 @@ const NewsPage = ({route, navigation}: NewsPageProps) => {
             position: 'absolute',
             top: 0,
             zIndex: 5,
-            backgroundColor: '#fff',
+            backgroundColor: colors.card,
             width: '100%',
             height: getStatusBarHeight(true),
             opacity: scrollingY.interpolate({
@@ -150,13 +185,14 @@ const NewsPage = ({route, navigation}: NewsPageProps) => {
           <BackButton size={rem(18)} onPress={navigation.goBack} />
         </View>
       </View>
-      <View style={styles.contentWrapper}>
+      <View style={[styles.contentWrapper, {backgroundColor: colors.card}]}>
         {contentReady ? (
           <Animated.View style={{opacity: contentOpacity}}>
             <RenderHtml
               contentWidth={width}
               source={{html: data.content?.fields.body}}
               onHTMLLoaded={onContentReady}
+              tagsStyles={tagsStyles}
             />
           </Animated.View>
         ) : (
